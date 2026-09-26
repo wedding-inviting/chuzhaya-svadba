@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Brush Script Custom";
-  src: url("./assets/fonts/BrushScriptMT.woff2") format("woff2");
+  font-family: "Marck Script";
+  src: url("./fonts/MarckScript-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,7 +18,7 @@
   --max: 1180px;
   --serif: Georgia, "Times New Roman", serif;
   --sans: Arial, Helvetica, sans-serif;
-  --script: "Brush Script Custom", "Segoe Script", cursive;
+  --script: "Marck Script", "Segoe Script", cursive;
 }
 
 * {
