@@ -37,44 +37,97 @@
   setInterval(updateCountdown, 1000);
 
   const form = document.querySelector("#rsvpForm");
-  const success = document.querySelector("#formSuccess");
-  const error = document.querySelector("#formError");
+const payment = document.querySelector("#payment");
+const error = document.querySelector("#formError");
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    const button = form.querySelector("button[type='submit']");
-    const originalButtonText = button.innerHTML;
+  const button = form.querySelector(
+    "button[type='submit']"
+  );
 
-    button.disabled = true;
-    button.innerHTML = "Отправляем…";
+  const originalButtonHTML = button.innerHTML;
 
-    success.hidden = true;
-    error.hidden = true;
+  button.disabled = true;
+  button.innerHTML = `
+    Отправляем… <span>♡</span>
+  `;
 
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: {
-          Accept: "application/json"
-        }
-      });
+  error.hidden = true;
 
-      if (!response.ok) {
-        throw new Error("Form submission failed");
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: {
+        Accept: "application/json"
       }
+    });
 
-      form.reset();
-      success.hidden = false;
-      button.innerHTML = "Отправлено ♡";
-    } catch (submissionError) {
-      console.error(submissionError);
-      error.hidden = false;
-      button.disabled = false;
-      button.innerHTML = originalButtonText;
+    if (!response.ok) {
+      throw new Error("Form submission failed");
     }
-  });
+
+    form.reset();
+
+    // Скрываем форму
+    form.hidden = true;
+
+    // Показываем оплату
+    payment.hidden = false;
+
+    // Прокручиваем к блоку оплаты
+    payment.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  } catch (submissionError) {
+    console.error(submissionError);
+
+    error.hidden = false;
+
+    button.disabled = false;
+    button.innerHTML = originalButtonHTML;
+  }
+});
+
+const accountButton = document.querySelector(
+  ".payment__account"
+);
+
+const copyStatus = document.querySelector(
+  "#copyStatus"
+);
+
+accountButton?.addEventListener("click", async () => {
+  const account = accountButton.dataset.account;
+
+  try {
+    await navigator.clipboard.writeText(account);
+
+    copyStatus.textContent =
+      "Номер счёта скопирован ♡";
+
+    accountButton.classList.add(
+      "payment__account--copied"
+    );
+
+    setTimeout(() => {
+      copyStatus.textContent =
+        "Нажми на номер, чтобы скопировать";
+
+      accountButton.classList.remove(
+        "payment__account--copied"
+      );
+    }, 2500);
+
+  } catch {
+    copyStatus.textContent =
+      "Скопируй номер счёта вручную";
+  }
+});
 
   const revealElements = document.querySelectorAll(
     ".reveal, .reveal-card"

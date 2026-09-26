@@ -280,66 +280,135 @@
         </div>
       </section>
 
+
+
       <section class="rsvp section section--dark reveal" id="rsvp">
         <div class="container rsvp__grid">
+
           <div>
             <p class="eyebrow">ответ на приглашение</p>
-            <h2 class="section-title">Ну что,<br><em>ты с нами?</em></h2>
-            <p class="rsvp__text">Оставь имя и выбери роль. Подробности о месте и оплате придут после подтверждения.</p>
+
+            <h2 class="section-title">
+              Ну что,<br>
+              <em>ты с нами?</em>
+            </h2>
+
+            <p class="rsvp__text">
+              Оставь имя и выбери роль. Подробности о месте
+              и оплате придут после подтверждения.
+            </p>
           </div>
 
-          <form class="form" id="rsvpForm" action="https://formspree.io/f/xwlpryqy" method="POST">
-            <input type="hidden" name="_subject" value="Новая заявка — Чужая свадьба">
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="form__honeypot"
-              aria-hidden="true">
+          <div class="rsvp__form-wrap">
 
-            <label class="form__field">
-              <span>Твоё имя</span>
-              <input type="text" name="name" placeholder="Например, Катя" autocomplete="name" required>
-            </label>
+            <!-- ФОРМА -->
+            <form class="form" id="rsvpForm" action="https://formspree.io/f/xwlpryqy" method="POST">
+              <input type="hidden" name="_subject" value="Новая заявка — Чужая свадьба">
 
-            <label class="form__field">
-              <span>Моя роль</span>
-              <select name="role" required>
-                <option value="" selected disabled>Выбрать роль</option>
-                <option>Сварливая свекровь</option>
-                <option>Троюродная тётя</option>
-                <option>Бывший одноклассник</option>
-                <option>Таинственный гость</option>
-                <option>Придумаю свою</option>
-              </select>
-            </label>
+              <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="form__honeypot"
+                aria-hidden="true">
 
-            <label class="form__field">
-              <span>Приду?</span>
-              <select name="attendance" required>
-                <option value="" selected disabled>Выбрать</option>
-                <option>Да, конечно!</option>
-                <option>Уточню чуть позже</option>
-              </select>
-            </label>
+              <label class="form__field">
+                <span>Твоё ФИО</span>
+                <input type="text" name="name" placeholder="Например, Иванов Иван Иванович" autocomplete="name"
+                  required>
+              </label>
 
-            <label class="form__field">
-              <span>Комментарий</span>
-              <input type="text" name="message" placeholder="Например, буду с +1">
-            </label>
+              <label class="form__field">
+                <span>Моя роль</span>
 
-            <button class="button button--light" type="submit">
-              Отправить ответ <span>→</span>
-            </button>
+                <select name="role" required>
+                  <option value="" selected disabled>
+                    Выбрать роль
+                  </option>
 
-            <p class="form__hint">
-              После отправки заявка поступит организаторам на почту.
-            </p>
+                  <option>Сварливая свекровь</option>
+                  <option>Троюродная тётя</option>
+                  <option>Бывший одноклассник</option>
+                  <option>Таинственный гость</option>
+                  <option>Придумаю свою</option>
+                </select>
+              </label>
 
-            <p class="form__success" id="formSuccess" hidden>
-              ♡ Заявка отправлена! До встречи на чужой свадьбе.
-            </p>
+              <label class="form__field">
+                <span>Приду?</span>
 
-            <p class="form__error" id="formError" hidden>
-              Не получилось отправить заявку. Попробуй ещё раз.
-            </p>
-          </form>
+                <select name="attendance" required>
+                  <option value="" selected disabled>
+                    Выбрать
+                  </option>
+
+                  <option>Да, конечно!</option>
+                  <option>Уточню чуть позже</option>
+                </select>
+              </label>
+
+              <label class="form__field">
+                <span>Комментарий</span>
+
+                <input type="text" name="message" placeholder="Например, буду с +1">
+              </label>
+
+              <button class="button button--light" type="submit">
+                Отправить ответ <span>→</span>
+              </button>
+
+              <p class="form__hint">
+                После отправки заявка поступит организаторам на почту.
+              </p>
+
+              <p class="form__error" id="formError" hidden>
+                Не получилось отправить заявку.
+                Попробуй ещё раз.
+              </p>
+            </form>
+
+
+            <!-- ОПЛАТА -->
+            <div class="payment" id="payment" hidden>
+              <p class="payment__eyebrow">
+                ПОСЛЕДНИЙ ШАГ
+              </p>
+
+              <h3 class="payment__title">
+                Почти готово <span>♡</span>
+              </h3>
+
+              <p class="payment__text">
+                Заявка отправлена организаторам.
+                Осталось оплатить участие.
+                При оплате укажи своё ФИО.
+              </p>
+
+              <div class="payment__amount">
+                3 500 ₽
+              </div>
+
+              <p class="payment__label">
+                Переведи эту сумму по номеру счёта:
+              </p>
+
+              <button class="payment__account" type="button" data-account="40817810153002979754">
+                <span class="payment__account-number">
+                  40817810153002979754
+                </span>
+
+                <span class="payment__copy">
+                  Копировать
+                </span>
+              </button>
+
+              <p class="payment__copy-status" id="copyStatus" aria-live="polite">
+                Нажми на номер, чтобы скопировать
+              </p>
+
+              <p class="payment__hint">
+                После перевода можешь закрыть страницу —
+                заявка уже отправлена организаторам.
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
     </main>

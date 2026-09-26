@@ -750,6 +750,115 @@ button, input, select {
   gap: 18px;
 }
 
+.form[hidden],
+.payment[hidden] {
+  display: none;
+}
+
+.payment__account {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  width: 100%;
+  padding: 20px 22px;
+
+  border: 1px solid rgba(20, 18, 18, 0.25);
+  border-radius: 0;
+
+  background: #f8f1e7;
+  color: #171414;
+
+  font-family: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* Розовая полоска слева */
+.payment__account::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 5px;
+
+  background: #ff2b8a;
+
+  transform: scaleY(0);
+  transform-origin: bottom;
+
+  transition: transform 0.3s ease;
+}
+
+/* Номер счёта */
+.payment__account-number {
+  font-family: "Courier New", monospace;
+  font-size: clamp(15px, 2vw, 19px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Копировать */
+.payment__copy {
+  flex-shrink: 0;
+
+  color: #ff2b8a;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  transition: color 0.25s ease;
+}
+
+/* Hover */
+.payment__account:hover {
+  background: #ff2b8a;
+  border-color: #ff2b8a;
+  color: #fff;
+
+  transform: translateY(-2px);
+}
+
+.payment__account:hover::before {
+  transform: scaleY(1);
+}
+
+.payment__account:hover .payment__copy {
+  color: #fff;
+}
+
+/* Нажатие */
+.payment__account:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* После копирования */
+.payment__account--copied {
+  background: #171414;
+  border-color: #171414;
+  color: #fff;
+}
+
+.payment__account--copied .payment__copy {
+  color: #ff2b8a;
+}
+
 .form__field {
   display: grid;
   gap: 9px;
