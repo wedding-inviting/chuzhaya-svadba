@@ -1,0 +1,21 @@
+{
+  "name": "Чужая свадьба",
+  "short_name": "Чужая свадьба",
+  "description": "Свадебная вечеринка «Чужая свадьба».",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff8f2",
+  "theme_color": "#ec0b79",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
