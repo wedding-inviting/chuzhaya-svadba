@@ -317,17 +317,70 @@
               <label class="form__field">
                 <span>Моя роль</span>
 
-                <select name="role" required>
-                  <option value="" selected disabled>
-                    Выбрать роль
-                  </option>
+                <div class="form__select">
+                  <select name="role" required>
+                    <option value="" selected disabled>
+                      Выбрать роль
+                    </option>
 
-                  <option>Сварливая свекровь</option>
-                  <option>Троюродная тётя</option>
-                  <option>Бывший одноклассник</option>
-                  <option>Таинственный гость</option>
-                  <option>Придумаю свою</option>
-                </select>
+                    <option value="groom">Жених</option>
+                    <option value="bride">Невеста</option>
+                    <option value="groomsman">Свидетель со стороны жениха</option>
+                    <option value="bridesmaid">Подружка невесты</option>
+
+                    <option value="mother-in-law">Свекровь</option>
+                    <option value="mother-in-law-bride">Тёща</option>
+                    <option value="father-in-law">Свёкр</option>
+                    <option value="father-in-law-bride">Тесть</option>
+
+                    <option value="grandmother">Бабушка</option>
+                    <option value="grandfather">Дедушка</option>
+
+                    <option value="aunt">Троюродная тётя</option>
+                    <option value="uncle">Двоюродный дядя</option>
+
+                    <option value="sister">Сестра</option>
+                    <option value="brother">Брат</option>
+
+                    <option value="ex">Бывший / бывшая</option>
+                    <option value="ex-classmate">Бывший одноклассник</option>
+
+                    <option value="best-friend">Лучший друг</option>
+                    <option value="best-friend-bride">Лучшая подруга</option>
+
+                    <option value="colleague">Коллега по работе</option>
+                    <option value="boss">Начальник</option>
+
+                    <option value="neighbor">Сосед</option>
+
+                    <option value="distant-relative">
+                      Очень дальний родственник
+                    </option>
+
+                    <option value="mysterious">
+                      Таинственный гость
+                    </option>
+
+                    <option value="random-guest">
+                      Гость, которого никто не знает
+                    </option>
+
+                    <option value="plus-one">
+                      Чей-то +1
+                    </option>
+
+                    <option value="guest">
+                      Просто гость
+                    </option>
+
+                    <option value="custom">
+                      Придумаю свою
+                    </option>
+                  </select>
+
+                  <span class="form__select-arrow" aria-hidden="true">↓</span>
+                  <span class="form__select-heart" aria-hidden="true">♡</span>
+                </div>
               </label>
 
               <label class="form__field">
@@ -427,7 +480,8 @@
     </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="./js/app.js"></script>
 </body>
 
 </html>

@@ -1384,3 +1384,132 @@ button, input, select {
     scroll-behavior: auto !important;
   }
 }
+
+.form__select {
+  position: relative;
+  width: 100%;
+}
+
+.form__select select {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+  height: 64px;
+
+  padding: 0 72px 0 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 0;
+
+  background: #f7efe5;
+  color: #171414;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.form__select select:hover {
+  border-color: #ff2b8a;
+  background: #fff8f0;
+}
+
+.form__select select:focus {
+  border-color: #ff2b8a;
+  background: #fff8f0;
+
+  box-shadow:
+    6px 6px 0 rgba(255, 43, 138, 0.18);
+
+  transform: translate(-2px, -2px);
+}
+
+.form__select-arrow {
+  position: absolute;
+
+  top: 50%;
+  right: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  color: #ff2b8a;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  pointer-events: none;
+
+  transform: translateY(-50%);
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.form__select:focus-within .form__select-arrow {
+  color: #171414;
+
+  transform:
+    translateY(-50%) rotate(180deg);
+}
+
+.form__select-heart {
+  position: absolute;
+
+  top: -10px;
+  right: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+
+  background: #ff2b8a;
+  color: #fff;
+
+  font-family: "Marck Script", cursive;
+  font-size: 17px;
+
+  transform: rotate(8deg);
+
+  pointer-events: none;
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.form__select:hover .form__select-heart {
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.form__select select:invalid {
+  color: rgba(23, 20, 20, 0.45);
+}
+
+.form__select select:valid {
+  color: #171414;
+}
+
+.form__select select option {
+  background: #f7efe5;
+  color: #171414;
+}
