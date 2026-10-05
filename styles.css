@@ -27,6 +27,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -892,6 +893,29 @@ button, input, select {
 
 .form__field input::placeholder {
   color: rgba(255, 255, 255, .45);
+}
+
+.form__field-error {
+  display: block;
+  margin-top: 8px;
+
+  color: #ff2b8a;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.form__field input.is-error {
+  border-color: #ff2b8a;
+  box-shadow: 4px 4px 0 rgba(255, 43, 138, 0.15);
+}
+
+.form__field input.is-valid {
+  border-color: #2f9e44;
+}
+
+.form__field input:focus.is-error {
+  outline: none;
+  border-color: #ff2b8a;
 }
 
 .form__hint {

@@ -302,7 +302,7 @@
           <div class="rsvp__form-wrap">
 
             <!-- ФОРМА -->
-            <form class="form" id="rsvpForm" action="https://formspree.io/f/mnpnlnwg" method="POST">
+            <form class="form" id="rsvpForm" action="https://formspree.io/f/xwlpryqy" method="POST">
               <input type="hidden" name="_subject" value="Новая заявка — Чужая свадьба">
 
               <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="form__honeypot"
@@ -380,6 +380,17 @@
               </label>
 
               <label class="form__field">
+                <span>Номер телефона</span>
+
+                <input type="tel" name="phone" id="phone" placeholder="+7 111 222 33 44" autocomplete="tel"
+                  inputmode="tel" maxlength="16" required>
+
+                <small class="form__field-error" id="phoneError" hidden>
+                  Введи номер в формате +7 111 222 33 44
+                </small>
+              </label>
+
+              <label class="form__field">
                 <span>Приду?</span>
 
                 <select name="attendance" required>
@@ -395,7 +406,7 @@
               <label class="form__field">
                 <span>Комментарий</span>
 
-                <input type="text" name="message" placeholder="Например, буду с +1">
+                <input type="text" name="message" placeholder="Например, свяжитесь в tg/vk">
               </label>
 
               <button class="button button--light" type="submit">
