@@ -40,20 +40,24 @@ export async function loadRoles() {
 }
 
 
-export async function takeRole(roleSlug) {
+export async function registerGuest({
+  name,
+  phone,
+  roleSlug,
+  message
+}) {
   const { data, error } = await supabaseClient.rpc(
-    "take_role",
+    "register_guest",
     {
-      role_slug: roleSlug
+      p_name: name,
+      p_phone: phone,
+      p_role_slug: roleSlug,
+      p_message: message || null
     }
   );
 
   if (error) {
-    console.error(
-      "Ошибка занятия роли:",
-      error
-    );
-
+    console.error("Ошибка сохранения заявки:", error);
     throw error;
   }
 

@@ -1,5 +1,5 @@
 import {
-  takeRole,
+  registerGuest,
   loadRoles
 } from "./roles.js";
 
@@ -15,129 +15,93 @@ export function initRSVP() {
   const validatePhone = initPhoneMask();
 
   form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!validatePhone()) {
-      return;
-    }
+  if (!validatePhone()) {
+    return;
+  }
 
-    const button = form.querySelector(
-      "button[type='submit']"
-    );
+  const button = form.querySelector("button[type='submit']");
+  const originalButtonHTML = button.innerHTML;
 
-    const originalButtonHTML = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = `Отправляем… <span>♡</span>`;
+  error.hidden = true;
 
-    button.disabled = true;
-    button.innerHTML = `
-      Отправляем… <span>♡</span>
-    `;
+  try {
+    const roleSelect = form.querySelector('select[name="role"]');
 
-    error.hidden = true;
+    const name = form.querySelector('[name="name"]').value.trim();
+    const phone = form.querySelector('[name="phone"]').value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
+    const role = roleSelect.value;
 
-    try {
-      console.log("1. Форма отправлена");
+    // Сохраняем заявку в Supabase и занимаем роль
+    const registered = await registerGuest({
+      name,
+      phone,
+      roleSlug: role,
+      message
+    });
 
-      const roleSelect = form.querySelector(
-        'select[name="role"]'
-      );
-
-      if (!roleSelect) {
-        throw new Error("Не найден select роли");
-      }
-
-      const role = roleSelect.value;
-
-      console.log("2. Выбранная роль:", role);
-
-      // Проверяем и занимаем роль
-      const roleTaken = await takeRole(role);
-
-      console.log("3. Ответ Supabase:", roleTaken);
-
-      if (!roleTaken) {
-        error.textContent =
-          "Эта роль уже занята. Пожалуйста, выбери другую ♡";
-
-        error.hidden = false;
-
-        button.disabled = false;
-        button.innerHTML = originalButtonHTML;
-
-        await loadRoles();
-
-        return;
-      }
-
-      // Создаём данные формы
-      const formData = new FormData(form);
-
-      // Получаем красивое название роли
-      const selectedRole =
-        roleSelect.options[
-          roleSelect.selectedIndex
-        ].text;
-
-      formData.set("role", selectedRole);
-
-      console.log(
-        "4. Отправляем данные в Formspree"
-      );
-
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json"
-        }
-      });
-
-      console.log(
-        "5. Formspree status:",
-        response.status
-      );
-
-      const responseText = await response.text();
-
-      console.log(
-        "6. Formspree response:",
-        responseText
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Formspree error ${response.status}: ${responseText}`
-        );
-      }
-
-      console.log(
-        "7. Заявка успешно отправлена"
-      );
-
-      form.reset();
-
-      form.hidden = true;
-      payment.hidden = false;
-
-      payment.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-    } catch (submissionError) {
-      console.error(
-        "ОШИБКА ОТПРАВКИ:",
-        submissionError
-      );
-
+    if (!registered) {
       error.textContent =
-        `Ошибка: ${submissionError.message}`;
-
+        "Эта роль уже занята. Пожалуйста, выбери другую ♡";
       error.hidden = false;
 
       button.disabled = false;
       button.innerHTML = originalButtonHTML;
+
+      await loadRoles();
+      return;
     }
-  });
+
+    // Подготавливаем данные для Formspree
+    const formData = new FormData(form);
+
+    const selectedRole =
+      roleSelect.options[roleSelect.selectedIndex].text;
+
+    formData.set("role", selectedRole);
+
+    // Отправляем заявку на почту
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      const responseText = await response.text();
+
+      throw new Error(
+        `Formspree error ${response.status}: ${responseText}`
+      );
+    }
+
+    // Показываем оплату после успешной отправки
+    form.reset();
+    form.hidden = true;
+    payment.hidden = false;
+
+    payment.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  } catch (submissionError) {
+    console.error("Ошибка отправки заявки:", submissionError);
+
+    error.textContent =
+      "Не получилось отправить заявку. Попробуй ещё раз.";
+    error.hidden = false;
+
+    button.disabled = false;
+    button.innerHTML = originalButtonHTML;
+  }
+});
 }
 
 function initPhoneMask() {
